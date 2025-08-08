@@ -1,42 +1,30 @@
-// src/services/api.js
 import axios from 'axios';
 
-const API_BASE = 'http://localhost:3001';
+// Get API URL from environment variable (default to localhost for safety)
+const API_BASE =  process.env.REACT_APP_API_BASE;;
 
 // ---------- USERS ----------
 export const getAllUsers = () => axios.get(`${API_BASE}/users`);
-
 export const getUserById = (id) => axios.get(`${API_BASE}/users/${id}`);
-
 export const addUser = (userData) => axios.post(`${API_BASE}/users`, userData);
-
 export const updateUser = (id, data) => axios.patch(`${API_BASE}/users/${id}`, data);
-
 export const deleteUser = (id) => axios.delete(`${API_BASE}/users/${id}`);
 
 // ---------- ITEMS ----------
 export const getItems = () => axios.get(`${API_BASE}/items`);
-
 export const addItem = (itemData) => axios.post(`${API_BASE}/items`, itemData);
-
 export const updateItem = (id, data) => axios.patch(`${API_BASE}/items/${id}`, data);
-
 export const deleteItem = (id) => axios.delete(`${API_BASE}/items/${id}`);
 
 // ---------- ITEMS OF DAY ----------
 export const getItemsOfDay = () => axios.get(`${API_BASE}/itemsOfDay`);
-
 export const addItemOfDay = (itemData) => axios.post(`${API_BASE}/itemsOfDay`, itemData);
-
 export const updateItemOfDay = (id, data) => axios.patch(`${API_BASE}/itemsOfDay/${id}`, data);
-
 export const deleteItemOfDay = (id) => axios.delete(`${API_BASE}/itemsOfDay/${id}`);
 
 // ---------- TRANSACTIONS ----------
 export const getTransactions = () => axios.get(`${API_BASE}/transactions`);
-
 export const addTransaction = (txnData) => axios.post(`${API_BASE}/transactions`, txnData);
-
 export const deleteTransaction = (id) => axios.delete(`${API_BASE}/transactions/${id}`);
 
 // ---------- AUTH ----------
