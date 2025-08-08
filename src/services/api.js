@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Get API URL from environment variable (default to localhost for safety)
-const API_BASE =  process.env.REACT_APP_API_BASE;;
+const API_BASE = process.env.REACT_APP_API_URL;
 
 // ---------- USERS ----------
 export const getAllUsers = () => axios.get(`${API_BASE}/users`);
