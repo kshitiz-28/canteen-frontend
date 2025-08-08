@@ -1,25 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthContext';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Login from './components/auth/Login';
+import EmployeeSignup from './components/auth/Signup'; 
+import AdminDashboard from './pages/AdminDashboard';
+import EmployeeDashboard from './pages/EmployeeDashboard';
+
+function LoginWrapper() {
+  const { user } = useAuth();
+  if (user) {
+    if (user.role === 'admin') return <Navigate to="/admin" replace />;
+    return <Navigate to="/employee" replace />;
+  }
+  return <Login />;
 }
 
-export default App;
+function ProtectedRoute({ children, role }) {
+  const { user } = useAuth();
+  if (!user) return <Navigate to="/login" replace />;
+  if (role && user.role !== role) return <Navigate to="/login" replace />;
+  return children;
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+    
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<LoginWrapper />} />
+          <Route path="/signup" element={<EmployeeSignup />} /> {/* ✅ ADD THIS */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/employee"
+            element={
+              <ProtectedRoute role="employee">
+                <EmployeeDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes>
+      </BrowserRouter>
+      
+    </AuthProvider>
+  );
+}
