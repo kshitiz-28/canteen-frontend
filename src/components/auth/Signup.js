@@ -3,7 +3,7 @@ import { TextField, Button, Snackbar, Alert, Box, Typography } from '@mui/materi
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const API_BASE = 'http://localhost:3001';
+const API_BASE = process.env.REACT_APP_API_URL;
 
 export default function EmployeeSignup() {
   const navigate = useNavigate();

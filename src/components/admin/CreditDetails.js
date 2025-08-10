@@ -3,7 +3,7 @@ import { Box, Typography, Paper, Divider } from '@mui/material';
 import axios from 'axios';
 import { getAllUsers,getTransactions } from '../../services/api';
 
-const API_BASE = 'http://localhost:3001';
+const API_BASE = process.env.REACT_APP_API_URL;
 
 export default function CreditDetails() {
   const [stats, setStats] = useState({

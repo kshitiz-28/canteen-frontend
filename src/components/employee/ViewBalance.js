@@ -4,7 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 import { getUserById } from '../../services/api';
 
-const API_BASE = 'http://localhost:3001';
+const API_BASE = process.env.REACT_APP_API_URL;
 
 export default function ViewBalance() {
   const { user } = useAuth();
